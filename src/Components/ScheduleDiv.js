@@ -4,6 +4,8 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import BlockIcon from "@material-ui/icons/Block";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
+import AddIcon from "@material-ui/icons/Add";
+
 function ScheduleDiv({ e, divData }) {
   const [showHover, setShowHover] = useState(false);
   const types = {
@@ -38,7 +40,7 @@ function ScheduleDiv({ e, divData }) {
       color: "green",
       hex: "20,255,20",
       icon: (
-        <EventAvailableIcon
+        <AddIcon
           style={{ color: "green", background: "white", borderRadius: 30 }}
         />
       ),
@@ -92,6 +94,7 @@ function ScheduleDiv({ e, divData }) {
       style={mainScheduleCardStyle}
       onMouseEnter={() => setShowHover(true)}
       onMouseLeave={() => setShowHover(false)}
+      onClick={e?.onClick}
     >
       <div
         style={{
@@ -109,9 +112,13 @@ function ScheduleDiv({ e, divData }) {
             background: "rgba(" + types[e?.status]?.hex + ",.3)",
           }}
         >
-          <p style={scheduleTextStyle}>
-            Client: {e?.client?.name || "undefined"}
-          </p>
+          {e?.client ? (
+            <p style={scheduleTextStyle}>
+              Client: {e?.client?.name || "undefined"}
+            </p>
+          ) : (
+            "Empty slot"
+          )}
           <p style={iconStyle}>{types[e?.status]?.icon || <CancelIcon />}</p>
           {showHover ? (
             <div

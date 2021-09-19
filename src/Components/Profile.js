@@ -1,7 +1,23 @@
 import ScheduleDiv from "./ScheduleDiv";
 
 function Profile({ i, profile, divData }) {
-  const tempSchedule = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+  const availableSchedule = {
+    // time: 1,
+    status: "available",
+    onClick: () => {
+      alert("this slot is available");
+    },
+  };
+  const tempSchedule = [
+    { ...availableSchedule, time: 0 },
+    { ...availableSchedule, time: 1 },
+    { ...availableSchedule, time: 2 },
+    { ...availableSchedule, time: 3 },
+    { ...availableSchedule, time: 4 },
+    { ...availableSchedule, time: 5 },
+    { ...availableSchedule, time: 6 },
+    { ...availableSchedule, time: 7 },
+  ];
   const mainRowStyle = {
     display: "inline-block",
     position: "relative",
@@ -37,7 +53,10 @@ function Profile({ i, profile, divData }) {
         </p>
       </div>
       {tempSchedule?.map((e, j) => {
-        //   if()
+        const temp = profile.schedule.find((v) => v.time == e.time);
+        if (temp) {
+          return <ScheduleDiv e={temp} divData={divData} />;
+        }
         return <ScheduleDiv e={e} divData={divData} />;
       })}
     </div>
